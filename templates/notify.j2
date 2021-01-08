@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+echo "Executing notify script {{ item.name }}"
+
+TYPE="${1}"
+NAME="${2}"
+STATE="${3}"
+
+mkdir -p /var/run/keepalived/${1}
+echo "${1} ${2} is in ${3} state" >| /var/run/keepalived/${1}/${2}.state
+
+case "${STATE}" in
+    "MASTER")
+{{ item.notify.master | default(':') | trim | indent(width=8, indentfirst=True) }}
+        ;;
+    "BACKUP")
+{{ item.notify.backup | default(':') | trim | indent(width=8, indentfirst=True) }}
+        ;;
+    "FAULT")
+{{ item.notify.fault | default(':') | trim | indent(width=8, indentfirst=True) }}
+        ;;
+    *)
+        echo "Unknown state: ${STATE}"
+        exit 1
+        ;;
+esac
+
+exit 0

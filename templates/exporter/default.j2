@@ -1,0 +1,1 @@
+ARGS="-web.listen-address {{ keepalived_exporter_listen_address }}{{ ' -web.telemetry-path ' + keepalived_exporter_telemetry_path if keepalived_exporter_telemetry_path | default(False) else '' }}{{ ' -ka.json' if keepalived_exporter_read_json | default(False) else '' }}{{ ' ' + keepalived_exporter_args | join(' ') if keepalived_exporter_args | default(False) else '' }}"

@@ -1,0 +1,85 @@
+# Standards: 0.1
+---
+- name: Check existing install
+  register: keepalived_exporter_version_check
+  failed_when: False
+  changed_when: False
+  check_mode: False
+  command: /usr/bin/keepalived-exporter --version
+  tags:
+    - keepalived
+    - keepalived-exporter
+
+- name: Fact version change
+  set_fact:
+    keepalived_exporter_version_changed: "{{ keepalived_exporter_version_check.rc != 0 or (keepalived_exporter_version_check.stderr_lines is defined and keepalived_exporter_version not in keepalived_exporter_version_check.stderr_lines[0]) | bool }}"
+  tags:
+    - keepalived
+    - keepalived-exporter
+
+- name: Download release tarball
+  when: keepalived_exporter_version_changed
+  unarchive:
+    src: "{{ keepalived_exporter_download }}"
+    dest: /usr/local/src
+    remote_src: True
+    owner: root
+    group: root
+  tags:
+    - keepalived
+    - keepalived-exporter
+
+- name: Copy exporter binary
+  when: keepalived_exporter_version_changed and not ansible_check_mode
+  notify:
+    - Restart keepalived-exporter
+  copy:
+    src: "/usr/local/src/keepalived_exporter-{{ keepalived_exporter_version }}-amd64/keepalived_exporter"
+    dest: /usr/bin/keepalived-exporter
+    remote_src: True
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+  tags:
+    - keepalived
+    - keepalived-exporter
+
+- name: Write default config
+  notify:
+    - Restart keepalived-exporter
+  template:
+    src: exporter/default.j2
+    dest: /etc/default/keepalived-exporter
+  tags:
+    - keepalived
+    - keepalived-exporter
+
+- name: Write service file
+  notify:
+    - Restart keepalived-exporter
+  template:
+    src: exporter/service.j2
+    dest: /etc/systemd/system/keepalived-exporter.service
+  tags:
+    - keepalived
+    - keepalived-exporter
+
+- name: Start keepalived-exporter service
+  systemd:
+    name: keepalived-exporter
+    state: started
+    daemon_reload: True
+    masked: False
+    enabled: True
+  tags:
+    - keepalived-exporter
+
+- name: Remove install directory
+  file:
+    path: "/usr/local/src/keepalived_exporter-{{ keepalived_exporter_version }}-amd64"
+    state: absent
+  tags:
+    - keepalived
+    - keepalived-exporter
+
+...

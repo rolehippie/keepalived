@@ -1,0 +1,11 @@
+[Unit]
+Description=Prometheus exporter for Keepalived
+After=network-online.target
+
+[Service]
+Restart=always
+EnvironmentFile=/etc/default/keepalived-exporter
+ExecStart=/usr/bin/keepalived-exporter $ARGS
+
+[Install]
+WantedBy=multi-user.target

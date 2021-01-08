@@ -1,0 +1,65 @@
+# Standards: 0.1
+---
+# @var keepalived_script_user:description: User for running scripts
+keepalived_script_user: keepalive_script
+
+# @var keepalived_script_group:description: Group for running scripts
+keepalived_script_group: "{{ keepalived_script_user }}"
+
+# @var keepalived_script_shell:description: Shell for the script user
+keepalived_script_shell: /usr/sbin/nologin
+
+# @var keepalived_instances:description: Definitions for floating IPs
+# @var keepalived_instances:example: >
+# keepalived_instances:
+#   - name: haproxy
+#     interface: ens224
+#     router: 228
+#     password: p455w0rd
+#     script: /usr/bin/killall -0 haproxy
+#     address:
+#       - 192.168.1.17/28
+#     routes:
+#       - 0.0.0.0/1 via 213.32.231.129 dev ens224
+#       - 128.0.0.0/1 via 213.32.231.129 dev ens224
+#     interfaces:
+#       - ens224
+#     peers:
+#       - 192.168.1.18
+#       - 192.168.1.19
+#     state:
+#       haproxy-01: MASTER
+#       haproxy-02: BACKUP
+#     priority:
+#       haproxy-01: 99
+#       haproxy-02: 98
+#     notify:
+#       master: |
+#         /usr/sbin/route add default gw 192.168.1.1 || true
+#       backup: |
+#         /usr/sbin/route delete default gw 192.168.1.1 || true
+# @end
+keepalived_instances: []
+
+# @var keepalived_exporter_enabled:description: Enable the installation of the keepalived exporter
+keepalived_exporter_enabled: True
+
+# @var keepalived_exporter_version:description: Version of the keepalived exporter to install
+keepalived_exporter_version: 0.4.0
+
+# @var keepalived_exporter_download:description: URL to the keepalived exporter to install
+keepalived_exporter_download: "https://github.com/gen2brain/keepalived_exporter/releases/download/{{ keepalived_exporter_version }}/keepalived_exporter-{{ keepalived_exporter_version }}-amd64.tar.gz"
+
+# @var keepalived_exporter_listen_address:description: Address to bind the exporter to
+keepalived_exporter_listen_address: 0.0.0.0:9650
+
+# @var keepalived_exporter_telemetry_path:description: Path to serve the metrics from
+keepalived_exporter_telemetry_path:
+
+# @var keepalived_exporter_read_json:description: Send SIGJSON and decode JSON file instead of parsing text files
+keepalived_exporter_read_json: True
+
+# @var keepalived_exporter_args:description: Optional list of additional arguments for the keepalived exporter
+keepalived_exporter_args: []
+
+...

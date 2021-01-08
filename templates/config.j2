@@ -1,0 +1,75 @@
+#jinja2: lstrip_blocks: True
+global_defs {
+  enable_script_security
+  script_user {{ keepalived_script_user }} {{ keepalived_script_group }}
+}
+{% for instance in keepalived_instances %}
+
+vrrp_script chk_{{ instance.name }} {
+  script "{{ instance.script }}"
+
+  interval {{ instance.interval | default(2) }}
+  weight {{ instance.weight | default(2) }}
+  user {{ instance.user | default(keepalived_script_user) }}
+}
+
+vrrp_instance {{ instance.name }} {
+  state {{ instance.state[ansible_hostname] | default("BACKUP") }}
+  interface {{ instance.interface }}
+  virtual_router_id {{ instance.router }}
+  priority {{ instance.priority[ansible_hostname] | default("90") }}
+{% if not instance.preempt | default(True) %}
+  nopreempt
+{% endif %}
+{% if instance.password | default(False) %}
+
+  authentication {
+    auth_type PASS
+    auth_pass {{ instance.password }}
+  }
+{% endif %}
+{% if instance.peers | default(False) %}
+
+{% for peer in instance.peers %}{% if peer in ansible_all_ipv4_addresses %}
+  unicast_src_ip {{ peer }}
+{% endif %}{% endfor %}
+  unicast_peer {
+{% for peer in instance.peers %}{% if peer not in ansible_all_ipv4_addresses %}
+    {{ peer }}
+{% endif %}{% endfor %}
+  }
+{% endif %}
+
+  virtual_ipaddress {
+{% if not instance.address is string and instance.address is iterable %}
+{% for address in instance.address %}
+    {{ address }}
+{% endfor %}
+{% else %}
+    {{ instance.address }}
+{% endif %}
+  }
+{% if instance.routes | default(False) %}
+
+  virtual_routes {
+{% for route in instance.routes %}
+    {{ route }}
+{% endfor %}
+  }
+{% endif %}
+{% if instance.interfaces | default(False) %}
+
+  track_interface {
+{% for interface in instance.interfaces %}
+    {{ interface }}
+{% endfor %}
+  }
+{% endif %}
+
+  track_script {
+    chk_{{ instance.name }}
+  }
+
+  notify /etc/keepalived/{{ instance.name }}/notify.sh
+}
+{% endfor %}
