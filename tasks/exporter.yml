@@ -5,14 +5,14 @@
   failed_when: False
   changed_when: False
   check_mode: False
-  command: /usr/bin/keepalived-exporter --version
+  shell: /usr/bin/keepalived-exporter --version 2>&1
   tags:
     - keepalived
     - keepalived-exporter
 
 - name: Fact version change
   set_fact:
-    keepalived_exporter_version_changed: "{{ keepalived_exporter_version_check.rc != 0 or (keepalived_exporter_version_check.stderr_lines is defined and keepalived_exporter_version not in keepalived_exporter_version_check.stderr_lines[0]) | bool }}"
+    keepalived_exporter_version_changed: "{{ keepalived_exporter_version_check.rc != 0 or (keepalived_exporter_version_check.stdout_lines is defined and keepalived_exporter_version not in keepalived_exporter_version_check.stdout_lines[0]) | bool }}"
   tags:
     - keepalived
     - keepalived-exporter
