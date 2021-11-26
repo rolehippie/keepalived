@@ -45,6 +45,7 @@ keepalived_instances: []
 keepalived_exporter_enabled: True
 
 # @var keepalived_exporter_version:description: Version of the keepalived exporter to install
+# renovate: datasource=github-releases depName=gen2brain/keepalived_exporter
 keepalived_exporter_version: 0.4.0
 
 # @var keepalived_exporter_download:description: URL to the keepalived exporter to install
