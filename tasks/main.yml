@@ -34,6 +34,9 @@
   copy:
     content: "d /var/run/keepalived 0755 {{ keepalived_script_user | default('root') }} {{ keepalived_script_group | default('root') }} -"
     dest: /etc/tmpfiles.d/keepalived.conf
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
   tags:
     - keepalived
 
@@ -53,6 +56,9 @@
   template:
     src: config.j2
     dest: /etc/keepalived/keepalived.conf
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
   tags:
     - keepalived
 
@@ -63,6 +69,9 @@
   file:
     path: "/etc/keepalived/{{ item.name }}"
     state: directory
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
   tags:
     - keepalived
 
