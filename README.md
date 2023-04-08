@@ -1,6 +1,11 @@
 # keepalived
 
-[![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/keepalived) [![General Workflow](https://github.com/rolehippie/keepalived/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/keepalived/actions/workflows/general.yml) [![Readme Workflow](https://github.com/rolehippie/keepalived/actions/workflows/readme.yml/badge.svg)](https://github.com/rolehippie/keepalived/actions/workflows/readme.yml) [![Galaxy Workflow](https://github.com/rolehippie/keepalived/actions/workflows/galaxy.yml/badge.svg)](https://github.com/rolehippie/keepalived/actions/workflows/galaxy.yml) [![License: Apache-2.0](https://img.shields.io/github/license/rolehippie/keepalived)](https://github.com/rolehippie/keepalived/blob/master/LICENSE) [![Ansible Role](https://img.shields.io/ansible/role/52669)](https://galaxy.ansible.com/rolehippie/keepalived)
+[![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&amp;logoColor=white)](https://github.com/rolehippie/keepalived)
+[![General Workflow](https://github.com/rolehippie/keepalived/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/keepalived/actions/workflows/general.yml)
+[![Readme Workflow](https://github.com/rolehippie/keepalived/actions/workflows/readme.yml/badge.svg)](https://github.com/rolehippie/keepalived/actions/workflows/readme.yml)
+[![Galaxy Workflow](https://github.com/rolehippie/keepalived/actions/workflows/galaxy.yml/badge.svg)](https://github.com/rolehippie/keepalived/actions/workflows/galaxy.yml)
+[![License: Apache-2.0](https://img.shields.io/github/license/rolehippie/keepalived)](https://github.com/rolehippie/keepalived/blob/master/LICENSE)
+[![Ansible Role](https://img.shields.io/badge/role-rolehippie.keepalived-blue)](https://galaxy.ansible.com/rolehippie/keepalived)
 
 Ansible role to configure failover IPs via Keepalived.
 
