@@ -46,7 +46,7 @@ keepalived_exporter_enabled: True
 
 # @var keepalived_exporter_version:description: Version of the keepalived exporter to install
 # renovate: datasource=github-releases depName=gen2brain/keepalived_exporter
-keepalived_exporter_version: 0.4.0
+keepalived_exporter_version: 0.7.0
 
 # @var keepalived_exporter_download:description: URL to the keepalived exporter to install
 keepalived_exporter_download: "https://github.com/gen2brain/keepalived_exporter/releases/download/{{ keepalived_exporter_version }}/keepalived_exporter-{{ keepalived_exporter_version }}-amd64.tar.gz"
