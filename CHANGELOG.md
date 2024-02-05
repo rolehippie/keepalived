@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/rolehippie/keepalived/compare/v1.0.0...v1.1.0) (2024-02-05)
+
+
+### Features
+
+* **deps:** update dependency gen2brain/keepalived_exporter to v0.7.0 ([f51f2df](https://github.com/rolehippie/keepalived/commit/f51f2df72ed059f32e099fc77762eaf50d781cca))
+
 ## 1.0.0 (2023-01-05)
 
 
