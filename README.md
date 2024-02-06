@@ -58,7 +58,7 @@ URL to the keepalived exporter to install
 #### Default value
 
 ```YAML
-keepalived_exporter_download: https://github.com/gen2brain/keepalived_exporter/releases/download/{{
+keepalived_exporter_download: https://github.com/gen2brain/keepalived_exporter/releases/download/v{{
   keepalived_exporter_version }}/keepalived_exporter-{{ keepalived_exporter_version
   }}-amd64.tar.gz
 ```
