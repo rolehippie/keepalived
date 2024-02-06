@@ -22,7 +22,7 @@
   ansible.builtin.user:
     name: "{{ keepalived_script_user }}"
     group: "{{ keepalived_script_group }}"
-    ansible.builtin.shell: "{{ keepalived_script_shell }}"
+    shell: "{{ keepalived_script_shell }}"
     system: True
     createhome: False
     state: present
