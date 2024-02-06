@@ -4,13 +4,13 @@
   failed_when: False
   changed_when: False
   check_mode: False
-  shell: /usr/bin/keepalived-exporter --version 2>&1
+  ansible.builtin.shell: /usr/bin/keepalived-exporter --version 2>&1
   tags:
     - keepalived
     - keepalived-exporter
 
 - name: Fact version change
-  set_fact:
+  ansible.builtin.set_fact:
     keepalived_exporter_version_changed: "{{ keepalived_exporter_version_check.rc != 0 or (keepalived_exporter_version_check.stdout_lines is defined and keepalived_exporter_version not in keepalived_exporter_version_check.stdout_lines[0]) | bool }}"
   tags:
     - keepalived
@@ -18,7 +18,7 @@
 
 - name: Download release tarball
   when: keepalived_exporter_version_changed
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ keepalived_exporter_download }}"
     dest: /usr/local/src
     remote_src: True
@@ -32,7 +32,7 @@
   when: keepalived_exporter_version_changed and not ansible_check_mode
   notify:
     - Restart keepalived-exporter
-  copy:
+  ansible.builtin.copy:
     src: "/usr/local/src/keepalived_exporter-{{ keepalived_exporter_version }}-amd64/keepalived_exporter"
     dest: /usr/bin/keepalived-exporter
     remote_src: True
@@ -46,7 +46,7 @@
 - name: Write default config
   notify:
     - Restart keepalived-exporter
-  template:
+  ansible.builtin.template:
     src: exporter/default.j2
     dest: /etc/default/keepalived-exporter
     owner: root
@@ -59,7 +59,7 @@
 - name: Write service file
   notify:
     - Restart keepalived-exporter
-  template:
+  ansible.builtin.template:
     src: exporter/service.j2
     dest: /etc/systemd/system/keepalived-exporter.service
     owner: root
@@ -70,7 +70,7 @@
     - keepalived-exporter
 
 - name: Start keepalived-exporter service
-  systemd:
+  ansible.builtin.systemd:
     name: keepalived-exporter
     state: started
     daemon_reload: True
@@ -80,7 +80,7 @@
     - keepalived-exporter
 
 - name: Remove install directory
-  file:
+  ansible.builtin.file:
     path: "/usr/local/src/keepalived_exporter-{{ keepalived_exporter_version }}-amd64"
     state: absent
   tags:
