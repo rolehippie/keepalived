@@ -1,9 +1,8 @@
-# Standards: 1.2
 ---
 - name: Install required packages
   loop:
     - keepalived
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
   tags:
@@ -11,7 +10,7 @@
 
 - name: Create script group
   when: keepalived_script_group | default(False) and keepalived_script_group != "root"
-  group:
+  ansible.builtin.group:
     name: "{{ keepalived_script_group }}"
     system: True
     state: present
@@ -20,7 +19,7 @@
 
 - name: Create script user
   when: keepalived_script_user | default(False) and keepalived_script_user != "root"
-  user:
+  ansible.builtin.user:
     name: "{{ keepalived_script_user }}"
     group: "{{ keepalived_script_group }}"
     shell: "{{ keepalived_script_shell }}"
@@ -31,7 +30,7 @@
     - keepalived
 
 - name: Write tmpfiles config
-  copy:
+  ansible.builtin.copy:
     content: "d /var/run/keepalived 0755 {{ keepalived_script_user | default('root') }} {{ keepalived_script_group | default('root') }} -"
     dest: /etc/tmpfiles.d/keepalived.conf
     owner: root
@@ -41,7 +40,7 @@
     - keepalived
 
 - name: Create tmpfiles dir
-  file:
+  ansible.builtin.file:
     path: /var/run/keepalived
     owner: "{{ keepalived_script_user | default('root') }}"
     group: "{{ keepalived_script_group | default('root') }}"
@@ -53,7 +52,7 @@
 - name: Write config file
   notify:
     - Restart keepalived
-  template:
+  ansible.builtin.template:
     src: config.j2
     dest: /etc/keepalived/keepalived.conf
     owner: root
@@ -66,7 +65,7 @@
   loop: "{{ keepalived_instances }}"
   loop_control:
     label: "{{ item.name }}"
-  file:
+  ansible.builtin.file:
     path: "/etc/keepalived/{{ item.name }}"
     state: directory
     owner: root
@@ -79,7 +78,7 @@
   loop: "{{ keepalived_instances }}"
   loop_control:
     label: "{{ item.name }}"
-  template:
+  ansible.builtin.template:
     src: notify.j2
     dest: "/etc/keepalived/{{ item.name }}/notify.sh"
     owner: "{{ keepalived_script_user | default('root') }}"
@@ -89,7 +88,7 @@
     - keepalived
 
 - name: Start keepalived service
-  systemd:
+  ansible.builtin.systemd:
     name: keepalived
     state: started
     daemon_reload: yes
@@ -100,7 +99,7 @@
 
 - name: Include exporter tasks
   when: keepalived_exporter_enabled | default(False)
-  include_tasks: exporter.yml
+  ansible.builtin.include_tasks: exporter.yml
   tags:
     - keepalived
     - keepalived-exporter
