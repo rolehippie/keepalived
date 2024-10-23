@@ -110,7 +110,7 @@ Version of the keepalived exporter to install
 #### Default value
 
 ```YAML
-keepalived_exporter_version: 0.7.0
+keepalived_exporter_version: 0.7.1
 ```
 
 ### keepalived_instances
