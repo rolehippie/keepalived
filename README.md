@@ -1,4 +1,4 @@
-# keepalived
+# workspace
 
 [![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/keepalived)
 [![General Workflow](https://github.com/rolehippie/keepalived/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/keepalived/actions/workflows/general.yml)
@@ -58,9 +58,10 @@ URL to the keepalived exporter to install
 #### Default value
 
 ```YAML
-keepalived_exporter_download: https://github.com/gen2brain/keepalived_exporter/releases/download/v{{
-  keepalived_exporter_version }}/keepalived_exporter-{{ keepalived_exporter_version
-  }}-amd64.tar.gz
+keepalived_exporter_download: 
+  https://github.com/gen2brain/keepalived_exporter/releases/download/v{{ 
+  keepalived_exporter_version }}/keepalived_exporter-{{ 
+  keepalived_exporter_version }}-amd64.tar.gz
 ```
 
 ### keepalived_exporter_enabled
@@ -190,7 +191,6 @@ keepalived_script_user: keepalive_script
 **_keepalived_**
 
 **_keepalived-exporter_**
-
 
 ## Dependencies
 
