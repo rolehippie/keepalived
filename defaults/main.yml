@@ -41,7 +41,7 @@ keepalived_script_shell: /usr/sbin/nologin
 keepalived_instances: []
 
 # @var keepalived_exporter_enabled:description: Enable the installation of the keepalived exporter
-keepalived_exporter_enabled: True
+keepalived_exporter_enabled: true
 
 # @var keepalived_exporter_version:description: Version of the keepalived exporter to install
 # renovate: datasource=github-releases depName=gen2brain/keepalived_exporter
@@ -57,7 +57,7 @@ keepalived_exporter_listen_address: 0.0.0.0:9650
 keepalived_exporter_telemetry_path:
 
 # @var keepalived_exporter_read_json:description: Send SIGJSON and decode JSON file instead of parsing text files
-keepalived_exporter_read_json: True
+keepalived_exporter_read_json: true
 
 # @var keepalived_exporter_args:description: Optional list of additional arguments for the keepalived exporter
 keepalived_exporter_args: []

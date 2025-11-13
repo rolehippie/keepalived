@@ -12,13 +12,13 @@ echo "${1} ${2} is in ${3} state" >| /var/run/keepalived/${1}/${2}.state
 
 case "${STATE}" in
     "MASTER")
-{{ item.notify.master | default(':') | trim | indent(width=8, first=True) }}
+{{ item.notify.master | default(':') | trim | indent(width=8, first=true) }}
         ;;
     "BACKUP")
-{{ item.notify.backup | default(':') | trim | indent(width=8, first=True) }}
+{{ item.notify.backup | default(':') | trim | indent(width=8, first=true) }}
         ;;
     "FAULT")
-{{ item.notify.fault | default(':') | trim | indent(width=8, first=True) }}
+{{ item.notify.fault | default(':') | trim | indent(width=8, first=true) }}
         ;;
     *)
         echo "Unknown state: ${STATE}"

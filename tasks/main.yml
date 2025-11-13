@@ -9,22 +9,22 @@
     - keepalived
 
 - name: Create script group
-  when: keepalived_script_group | default(False) and keepalived_script_group != "root"
+  when: keepalived_script_group | default(false) and keepalived_script_group != "root"
   ansible.builtin.group:
     name: "{{ keepalived_script_group }}"
-    system: True
+    system: true
     state: present
   tags:
     - keepalived
 
 - name: Create script user
-  when: keepalived_script_user | default(False) and keepalived_script_user != "root"
+  when: keepalived_script_user | default(false) and keepalived_script_user != "root"
   ansible.builtin.user:
     name: "{{ keepalived_script_user }}"
     group: "{{ keepalived_script_group }}"
     shell: "{{ keepalived_script_shell }}"
-    system: True
-    createhome: False
+    system: true
+    createhome: false
     state: present
   tags:
     - keepalived
@@ -91,14 +91,14 @@
   ansible.builtin.systemd:
     name: keepalived
     state: started
-    daemon_reload: yes
+    daemon_reload: true
     masked: no
     enabled: yes
   tags:
     - keepalived
 
 - name: Include exporter tasks
-  when: keepalived_exporter_enabled | default(False)
+  when: keepalived_exporter_enabled | default(false)
   ansible.builtin.include_tasks: exporter.yml
   tags:
     - keepalived

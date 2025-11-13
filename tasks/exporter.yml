@@ -1,9 +1,9 @@
 ---
 - name: Check existing install
   register: keepalived_exporter_version_check
-  failed_when: False
-  changed_when: False
-  check_mode: False
+  failed_when: false
+  changed_when: false
+  check_mode: false
   ansible.builtin.shell: /usr/bin/keepalived-exporter --version 2>&1
   tags:
     - keepalived
@@ -21,7 +21,7 @@
   ansible.builtin.unarchive:
     src: "{{ keepalived_exporter_download }}"
     dest: /usr/local/src
-    remote_src: True
+    remote_src: true
     owner: root
     group: root
   tags:
@@ -35,7 +35,7 @@
   ansible.builtin.copy:
     src: "/usr/local/src/keepalived_exporter-{{ keepalived_exporter_version }}-amd64/keepalived_exporter"
     dest: /usr/bin/keepalived-exporter
-    remote_src: True
+    remote_src: true
     owner: root
     group: root
     mode: u=rwx,g=rx,o=rx
@@ -73,9 +73,9 @@
   ansible.builtin.systemd:
     name: keepalived-exporter
     state: started
-    daemon_reload: True
-    masked: False
-    enabled: True
+    daemon_reload: true
+    masked: false
+    enabled: true
   tags:
     - keepalived-exporter
 

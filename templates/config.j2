@@ -1,4 +1,4 @@
-#jinja2: lstrip_blocks: True
+#jinja2: lstrip_blocks: true
 global_defs {
   enable_script_security
   script_user {{ keepalived_script_user }} {{ keepalived_script_group }}
@@ -18,17 +18,17 @@ vrrp_instance {{ instance.name }} {
   interface {{ instance.interface }}
   virtual_router_id {{ instance.router }}
   priority {{ instance.priority[ansible_hostname] | default("90") }}
-{% if not instance.preempt | default(True) %}
+{% if not instance.preempt | default(true) %}
   nopreempt
 {% endif %}
-{% if instance.password | default(False) %}
+{% if instance.password | default(false) %}
 
   authentication {
     auth_type PASS
     auth_pass {{ instance.password }}
   }
 {% endif %}
-{% if instance.peers | default(False) %}
+{% if instance.peers | default(false) %}
 
 {% for peer in instance.peers %}{% if peer in ansible_all_ipv4_addresses %}
   unicast_src_ip {{ peer }}
@@ -49,7 +49,7 @@ vrrp_instance {{ instance.name }} {
     {{ instance.address }}
 {% endif %}
   }
-{% if instance.routes | default(False) %}
+{% if instance.routes | default(false) %}
 
   virtual_routes {
 {% for route in instance.routes %}
@@ -57,7 +57,7 @@ vrrp_instance {{ instance.name }} {
 {% endfor %}
   }
 {% endif %}
-{% if instance.interfaces | default(False) %}
+{% if instance.interfaces | default(false) %}
 
   track_interface {
 {% for interface in instance.interfaces %}
