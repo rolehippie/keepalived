@@ -58,10 +58,7 @@ URL to the keepalived exporter to install
 #### Default value
 
 ```YAML
-keepalived_exporter_download: 
-  https://github.com/gen2brain/keepalived_exporter/releases/download/v{{ 
-  keepalived_exporter_version }}/keepalived_exporter-{{ 
-  keepalived_exporter_version }}-amd64.tar.gz
+keepalived_exporter_download: https://github.com/gen2brain/keepalived_exporter/releases/download/v{{ keepalived_exporter_version }}/keepalived_exporter-{{ keepalived_exporter_version }}-amd64.tar.gz
 ```
 
 ### keepalived_exporter_enabled
@@ -163,7 +160,7 @@ Group for running scripts
 #### Default value
 
 ```YAML
-keepalived_script_group: '{{ keepalived_script_user }}'
+keepalived_script_group: keepalive_script
 ```
 
 ### keepalived_script_shell
