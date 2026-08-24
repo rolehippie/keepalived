@@ -5,14 +5,14 @@
     keepalived_exporter_enabled: "{{ false if ansible_facts['architecture'] == 'aarch64' or ansible_facts['architecture'] == 'arm64' else true }}"
     keepalived_instances:
       - name: dummy
-        interface: eth0
+        interface: "{{ ansible_facts['default_ipv4']['interface'] }}"
         router: 100
         password: p455w0rd
         script: /usr/bin/true
         address:
           - "{{ ansible_facts['default_ipv4']['address'] | regex_replace('\\.[0-9]+$', '.250') }}/24"
         interfaces:
-          - eth0
+          - "{{ ansible_facts['default_ipv4']['interface'] }}"
         peers:
           - 192.168.1.18
           - 192.168.1.19
