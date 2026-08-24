@@ -1,26 +1,26 @@
 ---
 - name: Converge
   hosts: all
-  vars:
-    keepalived_exporter_enabled: "{{ false if ansible_facts['architecture'] == 'aarch64' or ansible_facts['architecture'] == 'arm64' else true }}"
-    keepalived_instances:
-      - name: dummy
-        interface: "{{ ansible_facts['default_ipv4']['interface'] }}"
-        router: 100
-        password: p455w0rd
-        script: /usr/bin/true
-        address:
-          - "{{ ansible_facts['default_ipv4']['address'] | regex_replace('\\.[0-9]+$', '.250') }}/24"
-        interfaces:
-          - "{{ ansible_facts['default_ipv4']['interface'] }}"
-        peers:
-          - 192.168.1.18
-          - 192.168.1.19
-        state:
-          ubuntu: MASTER
-        priority:
-          ubuntu: 99
-  roles:
-    - role: rolehippie.keepalived
+  # vars:
+  #   keepalived_exporter_enabled: "{{ false if ansible_facts['architecture'] == 'aarch64' or ansible_facts['architecture'] == 'arm64' else true }}"
+  #   keepalived_instances:
+  #     - name: dummy
+  #       interface: "{{ ansible_facts['default_ipv4']['interface'] }}"
+  #       router: 100
+  #       password: p455w0rd
+  #       script: /usr/bin/true
+  #       address:
+  #         - "{{ ansible_facts['default_ipv4']['address'] | regex_replace('\\.[0-9]+$', '.250') }}/24"
+  #       interfaces:
+  #         - "{{ ansible_facts['default_ipv4']['interface'] }}"
+  #       peers:
+  #         - 192.168.1.18
+  #         - 192.168.1.19
+  #       state:
+  #         ubuntu: MASTER
+  #       priority:
+  #         ubuntu: 99
+  # roles:
+  #   - role: rolehippie.keepalived
 
 ...
