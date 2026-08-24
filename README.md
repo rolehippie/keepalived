@@ -17,6 +17,7 @@ Building and improving this Ansible role have been sponsored by my current and p
 
 - [Requirements](#requirements)
 - [Default Variables](#default-variables)
+  - [keepalived_exporter_arch](#keepalived_exporter_arch)
   - [keepalived_exporter_args](#keepalived_exporter_args)
   - [keepalived_exporter_download](#keepalived_exporter_download)
   - [keepalived_exporter_enabled](#keepalived_exporter_enabled)
@@ -41,6 +42,16 @@ Building and improving this Ansible role have been sponsored by my current and p
 
 ## Default Variables
 
+### keepalived_exporter_arch
+
+Architecture for the binary
+
+#### Default value
+
+```YAML
+keepalived_exporter_arch: "{{ 'arm64' if ansible_facts['architecture'] in ['aarch64', 'arm64'] else 'amd64' }}"
+```
+
 ### keepalived_exporter_args
 
 Optional list of additional arguments for the keepalived exporter
@@ -58,7 +69,7 @@ URL to the keepalived exporter to install
 #### Default value
 
 ```YAML
-keepalived_exporter_download: https://github.com/gen2brain/keepalived_exporter/releases/download/v{{ keepalived_exporter_version }}/keepalived_exporter-{{ keepalived_exporter_version }}-amd64.tar.gz
+keepalived_exporter_download: https://github.com/gen2brain/keepalived_exporter/releases/download/v{{ keepalived_exporter_version }}/keepalived_exporter-{{ keepalived_exporter_version }}-{{ keepalived_exporter_arch }}.tar.gz
 ```
 
 ### keepalived_exporter_enabled
