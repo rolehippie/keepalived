@@ -17,7 +17,8 @@
     - keepalived-exporter
 
 - name: Download release tarball
-  when: keepalived_exporter_version_changed
+  when:
+    - keepalived_exporter_version_changed
   ansible.builtin.unarchive:
     src: "{{ keepalived_exporter_download }}"
     dest: /usr/local/src
@@ -29,11 +30,13 @@
     - keepalived-exporter
 
 - name: Copy exporter binary
-  when: keepalived_exporter_version_changed and not ansible_check_mode
+  when:
+    - keepalived_exporter_version_changed
+    - not ansible_check_mode
   notify:
     - Restart keepalived-exporter
   ansible.builtin.copy:
-    src: "/usr/local/src/keepalived_exporter-{{ keepalived_exporter_version }}-amd64/keepalived_exporter"
+    src: "/usr/local/src/keepalived_exporter-{{ keepalived_exporter_version }}-{{ keepalived_exporter_arch }}/keepalived_exporter"
     dest: /usr/bin/keepalived-exporter
     remote_src: true
     owner: root
@@ -81,7 +84,7 @@
 
 - name: Remove install directory
   ansible.builtin.file:
-    path: "/usr/local/src/keepalived_exporter-{{ keepalived_exporter_version }}-amd64"
+    path: "/usr/local/src/keepalived_exporter-{{ keepalived_exporter_version }}-{{ keepalived_exporter_arch }}"
     state: absent
   tags:
     - keepalived

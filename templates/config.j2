@@ -1,4 +1,3 @@
-#jinja2: lstrip_blocks: true
 global_defs {
   enable_script_security
   script_user {{ keepalived_script_user }} {{ keepalived_script_group }}
@@ -14,10 +13,10 @@ vrrp_script chk_{{ instance.name }} {
 }
 
 vrrp_instance {{ instance.name }} {
-  state {{ instance.state[ansible_hostname] | default("BACKUP") }}
+  state {{ instance.state[ansible_facts['hostname']] | default("BACKUP") }}
   interface {{ instance.interface }}
   virtual_router_id {{ instance.router }}
-  priority {{ instance.priority[ansible_hostname] | default("90") }}
+  priority {{ instance.priority[ansible_facts['hostname']] | default("90") }}
 {% if not instance.preempt | default(true) %}
   nopreempt
 {% endif %}
@@ -30,11 +29,11 @@ vrrp_instance {{ instance.name }} {
 {% endif %}
 {% if instance.peers | default(false) %}
 
-{% for peer in instance.peers %}{% if peer in ansible_all_ipv4_addresses %}
+{% for peer in instance.peers %}{% if peer in ansible_facts['all_ipv4_addresses'] %}
   unicast_src_ip {{ peer }}
 {% endif %}{% endfor %}
   unicast_peer {
-{% for peer in instance.peers %}{% if peer not in ansible_all_ipv4_addresses %}
+{% for peer in instance.peers %}{% if peer not in ansible_facts['all_ipv4_addresses'] %}
     {{ peer }}
 {% endif %}{% endfor %}
   }

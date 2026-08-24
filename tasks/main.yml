@@ -9,7 +9,10 @@
     - keepalived
 
 - name: Create script group
-  when: keepalived_script_group | default(false) and keepalived_script_group != "root"
+  when:
+    - keepalived_script_group is defined
+    - keepalived_script_group | length > 0
+    - keepalived_script_group != "root"
   ansible.builtin.group:
     name: "{{ keepalived_script_group }}"
     system: true
@@ -18,7 +21,10 @@
     - keepalived
 
 - name: Create script user
-  when: keepalived_script_user | default(false) and keepalived_script_user != "root"
+  when:
+    - keepalived_script_user is defined
+    - keepalived_script_user | length > 0
+    - keepalived_script_user != "root"
   ansible.builtin.user:
     name: "{{ keepalived_script_user }}"
     group: "{{ keepalived_script_group }}"
@@ -92,8 +98,8 @@
     name: keepalived
     state: started
     daemon_reload: true
-    masked: no
-    enabled: yes
+    masked: false
+    enabled: true
   tags:
     - keepalived
 
