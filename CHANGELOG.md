@@ -1,5 +1,25 @@
 # Changelog
 
+## [2.3.0](https://github.com/rolehippie/keepalived/compare/v2.2.0...v2.3.0) (2026-08-31)
+
+### Features
+
+* resolve molecule tests and use new facts ([f7689e1](https://github.com/rolehippie/keepalived/commit/f7689e1c5319bc5351eaacabe50f2b52364883ec))
+
+### Bugfixes
+
+* use dynamic interface for proper workflow execution ([6b94428](https://github.com/rolehippie/keepalived/commit/6b94428bfab206e4bf6a6e66492146616209823c))
+
+### Dependencies
+
+* **minor:** update dependency pipx:ansible-doctor to v8.4.0 ([a8c9d92](https://github.com/rolehippie/keepalived/commit/a8c9d9292f85ed4c23610ba5c7749add80072212))
+* **minor:** update dependency pipx:ansible-lint to v26.8.0 ([d2c467f](https://github.com/rolehippie/keepalived/commit/d2c467ff7d453cb9ff4f7dbb52371c26638e14be))
+* **minor:** update dependency pipx:molecule to v26.8.0 ([ee8fe1f](https://github.com/rolehippie/keepalived/commit/ee8fe1fcd11ec6b11a2ef42cbada4017165c22b0))
+* **patch:** update dependency pipx:ansible-core to v2.21.3 ([#43](https://github.com/rolehippie/keepalived/issues/43)) ([2fd024c](https://github.com/rolehippie/keepalived/commit/2fd024cd77000be97ca29bcba221a8e54061a56b))
+* **patch:** update dependency pipx:ansible-doctor to v8.4.1 ([#47](https://github.com/rolehippie/keepalived/issues/47)) ([a46abb9](https://github.com/rolehippie/keepalived/commit/a46abb96a0720f3985fdd871ea7635aedae86f55))
+* **patch:** update dependency pre-commit to v4.6.2 ([#44](https://github.com/rolehippie/keepalived/issues/44)) ([eb58ac2](https://github.com/rolehippie/keepalived/commit/eb58ac2f17ad1e4d4515bb5f73b5720532951baf))
+* **patch:** update dependency python to v3.14.7 ([a3bbd85](https://github.com/rolehippie/keepalived/commit/a3bbd85450e3a69f6ae47261744da6d4a82bdf83))
+
 ## [2.2.0](https://github.com/rolehippie/keepalived/compare/v2.1.0...v2.2.0) (2026-07-27)
 
 ## [2.1.0](https://github.com/rolehippie/keepalived/compare/v2.0.1...v2.1.0) (2025-11-17)
