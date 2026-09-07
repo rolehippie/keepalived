@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.4.0](https://github.com/rolehippie/keepalived/compare/v2.3.0...v2.4.0) (2026-09-07)
+
+### Features
+
+* use new required facts as attributes ([b77028c](https://github.com/rolehippie/keepalived/commit/b77028cd61e8fcc565bdf4b2e548593682d7abdc))
+
 ## [2.3.0](https://github.com/rolehippie/keepalived/compare/v2.2.0...v2.3.0) (2026-08-31)
 
 ### Features
